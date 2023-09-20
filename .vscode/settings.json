@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "GD_Lab1.sln"
+    "dotnet.defaultSolution": "50.033Checkoff.sln"
 }
