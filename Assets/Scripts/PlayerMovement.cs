@@ -95,8 +95,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 Vector2 movement = new Vector2(moveHorizontal, 0);
                 // check if it doesn't go beyond maxSpeed
-                if (marioBody.velocity.x < maxSpeed)
+                if (Mathf.Abs(marioBody.velocity.x) < maxSpeed)
                     marioBody.AddForce(movement * speed);
+
             }
 
             //// stop
@@ -113,8 +114,6 @@ public class PlayerMovement : MonoBehaviour
                 onGroundState = false;
                 // update animator state
                 marioAnimator.SetBool("onGround", onGroundState);
-
-
             }
         }
 

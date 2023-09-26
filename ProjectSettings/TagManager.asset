@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Enemy
+  - Mario_Top
   layers:
   - Default
   - TransparentFX
@@ -15,8 +16,8 @@ TagManager:
   - UI
   - Enemies
   - Obstacles
-  - 
-  - 
+  - Mario_Top
+  - Mario_Bot
   - 
   - 
   - 
@@ -45,6 +46,9 @@ TagManager:
     locked: 0
   - name: BackGround
     uniqueID: 2201023905
+    locked: 0
+  - name: Item
+    uniqueID: 1336152773
     locked: 0
   - name: Ground
     uniqueID: 1070710247
