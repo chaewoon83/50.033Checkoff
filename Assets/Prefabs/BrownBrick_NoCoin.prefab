@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 4611955549093179801}
   - component: {fileID: 7191937560603611801}
   - component: {fileID: 3375490856825289063}
+  - component: {fileID: 713296866261686272}
   m_Layer: 7
-  m_Name: BrownBlock_NoCoin
+  m_Name: BrownBlock_Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -158,6 +159,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 5
+--- !u!231 &713296866261686272
+SpringJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7104816091227757580}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 7877369716609942557}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_BreakAction: 3
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 1}
+  m_AutoConfigureDistance: 0
+  m_Distance: 1
+  m_DampingRatio: 1
+  m_Frequency: 5
 --- !u!1 &7367546601497640285
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,8 +302,8 @@ GameObject:
   - component: {fileID: 4476294211523504002}
   - component: {fileID: 3332741740138699433}
   - component: {fileID: 8313320977374350899}
-  - component: {fileID: 3500165813307395869}
   - component: {fileID: 7071159785997564966}
+  - component: {fileID: 309498773149060650}
   m_Layer: 0
   m_Name: BrownBrick_NoCoin
   m_TagString: Untagged
@@ -502,27 +524,6 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
---- !u!114 &3500165813307395869
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8649312536394031147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63e18056845faca4a8d1edd3a10ff18c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BrownBlockRigidbody: {fileID: 3375490856825289063}
-  StaticBox: {fileID: 277919630076224795}
-  DynamicBox: {fileID: 7191937560603611801}
-  CoinRigidBody: {fileID: 0}
-  CoinGameObject: {fileID: 0}
-  endTime: 0.1
-  AudioSource: {fileID: 7071159785997564966}
-  CoinAudio: {fileID: 8300000, guid: d885ffc842af744d89f7d595ffcc176a, type: 3}
-  BumpAudio: {fileID: 8300000, guid: 6f487163c53194893952b1f457060b86, type: 3}
 --- !u!82 &7071159785997564966
 AudioSource:
   m_ObjectHideFlags: 0
@@ -619,3 +620,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &309498773149060650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8649312536394031147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3cb18c477eb6cc49ab6bb00a1a942f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BrownBlockRigidbody: {fileID: 3375490856825289063}
+  StaticBox: {fileID: 277919630076224795}
+  DynamicBox: {fileID: 7191937560603611801}
+  endTime: 0.2
+  AudioSource: {fileID: 7071159785997564966}
+  BumpAudio: {fileID: 8300000, guid: 6f487163c53194893952b1f457060b86, type: 3}
