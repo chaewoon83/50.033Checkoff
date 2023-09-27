@@ -222,7 +222,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &30769417
 Transform:
   m_ObjectHideFlags: 0
@@ -2633,11 +2633,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyLocation: {fileID: 321393997}
   scoreText: {fileID: 1037917675}
-  boxSize: {x: 0.5, y: 1, z: 0}
+  boxSize: {x: 0.8, y: 0.5, z: 0}
   maxDistance: 0.5
   layerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 136
 --- !u!95 &1404332893
 Animator:
   serializedVersion: 5

@@ -34,7 +34,7 @@ public class BrownBrick_Coin : MonoBehaviour
     void Update()
     {
 
-        if (currentTime > endTime) 
+        if (currentTime > endTime && IsActive == false) 
         {
             //BrownBlockRigidbody.bodyType = RigidbodyType2D.Static;
             StaticBox.enabled = false;
