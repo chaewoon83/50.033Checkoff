@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UIElements;
 
 public class QuestionBlock : MonoBehaviour
@@ -26,7 +27,9 @@ public class QuestionBlock : MonoBehaviour
     bool stopTime = false;
     bool IsBump = false;
     bool IsCoin = false;
-    
+
+    public int parameter;
+    public UnityEvent<int> useInt;
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +64,7 @@ public class QuestionBlock : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Mario_Top"))
         {
+            int a = 0;
             if (IsActive == true)
             {
                 StaticBox.enabled = true;
@@ -82,9 +86,9 @@ public class QuestionBlock : MonoBehaviour
 
     void SpawnCoin()
     {
+        useInt.Invoke(parameter);
         CoinGameObject.SetActive(true);
         CoinRigidBody.AddForce(Vector2.up * 15.0f, ForceMode2D.Impulse);
-
     }
 
     void CalculateInActiveTime()
@@ -121,7 +125,19 @@ public class QuestionBlock : MonoBehaviour
             {
                 currentBumpTime += Time.deltaTime;
             }
-
         }
+    }
+
+    public void Reset()
+    {
+        CoinGameObject.transform.localPosition = Vector2.zero;
+        IsActive = true;
+        stopTime = false;
+        IsBump = false;
+        IsCoin = false;
+        QuestionblockAnimator.SetBool("IsActive", true);
+        CoinGameObject.SetActive(false);
+        StaticBox.enabled = false;
+
     }
 }

@@ -21,9 +21,7 @@ public class PlayerMovement : MonoBehaviour
     public Animator marioAnimator;
 
     // other variables
-    public TextMeshProUGUI scoreText;
     public GameObject enemies;
-    public JumpOverGoomba jumpOverGoomba;
     public GameObject GameOver;
 
     // for audio
@@ -41,6 +39,9 @@ public class PlayerMovement : MonoBehaviour
 
     int collisionLayerMask = (1 << 3) | (1 << 6) | (1 << 7);
 
+    // gamemanager
+    GameManager gameManager;
+
 
 
     // Start is called before the first frame update
@@ -51,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
         marioBody = GetComponent<Rigidbody2D>();
         marioSprite = GetComponent<SpriteRenderer>();
         marioAnimator.SetBool("onGround", onGroundState);
+        gameManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -143,40 +145,12 @@ public class PlayerMovement : MonoBehaviour
         marioAudio.PlayOneShot(marioAudio.clip);
     }
 
-    public void RestartButtonCallback(int input)
-    {
-        Debug.Log("Restart!");
-        // reset everything
-        ResetGame();
-        // resume time
-        Time.timeScale = 1.0f;
-        GameOver.SetActive(false);
-    }
-
-    private void ResetGame()
-    {
-        // reset position
-        marioBody.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
-        // reset sprite direction
-        faceRightState = true;
-        marioSprite.flipX = false;
-        // reset score
-        scoreText.text = "Score: 0";
-        // reset Goomba
-        foreach (Transform eachChild in enemies.transform)
-        {
-            eachChild.transform.localPosition = eachChild.GetComponent<EnemyMovement>().startPosition;
-        }
-        // reset score
-        jumpOverGoomba.score = 0;
 
         // reset animation
         marioAnimator.SetTrigger("gameRestart");
         alive = true;
 
         // reset camera position
-        //gameCamera.position = new Vector3(0, 4.5f, -10f);
-    }
 
     void PlayDeathImpulse()
     {
@@ -185,10 +159,7 @@ public class PlayerMovement : MonoBehaviour
 
     void GameOverScene()
     {
-        // stop time
-        Time.timeScale = 0.0f;
-        // set gameover scene
-        GameOver.SetActive(true); // replace this with whichever way you triggered the game over screen for Checkoff 1
+        gameManager.GameOver(); //
     }
 
     public void Jump()
@@ -214,6 +185,22 @@ public class PlayerMovement : MonoBehaviour
             jumpedState = false;
 
         }
+    }
+
+    public void GameRestart()
+    {
+        // reset position
+        marioBody.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
+        // reset sprite direction
+        faceRightState = true;
+        marioSprite.flipX = false;
+
+        // reset animation
+        marioAnimator.SetTrigger("gameRestart");
+        alive = true;
+
+        //// reset camera position
+        //gameCamera.position = new Vector3(0.0f, 0.0f, 0.0f);
     }
 
 }

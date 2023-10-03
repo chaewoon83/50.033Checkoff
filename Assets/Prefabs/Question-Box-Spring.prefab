@@ -339,7 +339,7 @@ GameObject:
   - component: {fileID: 349366637498010514}
   m_Layer: 0
   m_Name: Question-Box-Spring
-  m_TagString: Untagged
+  m_TagString: QuestionBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -579,6 +579,22 @@ MonoBehaviour:
   CoinAudioSource: {fileID: 349366637498010514}
   CoinAudioClip: {fileID: 8300000, guid: d885ffc842af744d89f7d595ffcc176a, type: 3}
   BumpClip: {fileID: 8300000, guid: 6f487163c53194893952b1f457060b86, type: 3}
+  parameter: 0
+  useInt:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: IncreaseScore
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!82 &349366637498010514
 AudioSource:
   m_ObjectHideFlags: 0

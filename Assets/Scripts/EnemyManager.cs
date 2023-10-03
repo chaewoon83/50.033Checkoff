@@ -1,18 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
-public class TrackScore : MonoBehaviour
+public class EnemyManager : MonoBehaviour
 {
-    public JumpOverGoomba jumpOverGoomba;
-    public TextMeshProUGUI scoreText;
-
-
     // Start is called before the first frame update
     void Start()
     {
-        scoreText = GetComponent<TextMeshProUGUI>();
+
     }
 
     // Update is called once per frame
@@ -20,9 +15,12 @@ public class TrackScore : MonoBehaviour
     {
 
     }
-    void OnEnable()
-    {
-        Debug.Log("Update Score");
-    }
 
+    public void GameRestart()
+    {
+        foreach (Transform child in transform)
+        {
+            child.GetComponent<EnemyMovement>().GameRestart();
+        }
+    }
 }

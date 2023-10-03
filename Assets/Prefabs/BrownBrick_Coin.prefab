@@ -306,7 +306,7 @@ GameObject:
   - component: {fileID: 7071159785997564966}
   m_Layer: 0
   m_Name: BrownBrick_Coin
-  m_TagString: Untagged
+  m_TagString: CoinObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -546,6 +546,22 @@ MonoBehaviour:
   AudioSource: {fileID: 7071159785997564966}
   CoinAudio: {fileID: 8300000, guid: d885ffc842af744d89f7d595ffcc176a, type: 3}
   BumpAudio: {fileID: 8300000, guid: 6f487163c53194893952b1f457060b86, type: 3}
+  useInt:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11500000, guid: b18441e3e69b2764caff5769f3634db2, type: 3}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  parameter: 0
 --- !u!82 &7071159785997564966
 AudioSource:
   m_ObjectHideFlags: 0

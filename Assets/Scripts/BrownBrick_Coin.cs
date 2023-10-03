@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UIElements;
 
 public class BrownBrick_Coin : MonoBehaviour
@@ -23,6 +24,9 @@ public class BrownBrick_Coin : MonoBehaviour
     bool IsActive = true;
     bool IsCoin = true;
     bool IsCoinSound = true;
+
+    public UnityEvent<int> useInt;
+    public int parameter;
 
     // Start is called before the first frame update
     void Start()
@@ -87,8 +91,18 @@ public class BrownBrick_Coin : MonoBehaviour
 
     void SpawnCoin()
     {
+        useInt.Invoke(parameter);
         CoinGameObject.SetActive(true);
         CoinRigidBody.AddForce(Vector2.up * 15.0f, ForceMode2D.Impulse);
   
+    }
+
+    public void Reset()
+    {
+        IsActive = true;
+        IsCoin = true;
+        IsCoinSound = true;
+        CoinGameObject.transform.localPosition = Vector2.zero;
+        CoinGameObject.SetActive(false);
     }
 }

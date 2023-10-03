@@ -7,6 +7,9 @@ TagManager:
   - Ground
   - Enemy
   - Mario_Top
+  - Manager
+  - CoinObject
+  - QuestionBox
   layers:
   - Default
   - TransparentFX
