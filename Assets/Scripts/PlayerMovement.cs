@@ -146,12 +146,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-        // reset animation
-        marioAnimator.SetTrigger("gameRestart");
-        alive = true;
-
-        // reset camera position
-
     void PlayDeathImpulse()
     {
         marioBody.AddForce(Vector2.up * deathImpulse, ForceMode2D.Impulse);
