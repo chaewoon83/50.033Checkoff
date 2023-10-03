@@ -1,14 +1,14 @@
 {
-    "name": "MarioActions",
+    "name": "Mario Actions",
     "maps": [
         {
             "name": "gameplay",
-            "id": "74b86c7a-3b8c-497a-9542-0032249019a7",
+            "id": "35f39647-a54b-4499-8fbc-63aeb05f7abe",
             "actions": [
                 {
                     "name": "move",
                     "type": "Value",
-                    "id": "8898e4da-4447-441c-bac3-4bd331f0b33d",
+                    "id": "162d54ae-8837-433b-a068-22687edcdb08",
                     "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
@@ -17,7 +17,7 @@
                 {
                     "name": "jump",
                     "type": "Button",
-                    "id": "52b8d3e8-dc4c-4fa4-9fea-bc5cfe53433a",
+                    "id": "b24e64fe-9a81-452b-9437-46a4dd64c1a1",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -26,7 +26,7 @@
                 {
                     "name": "jumphold",
                     "type": "Button",
-                    "id": "b699e9e5-8e31-4c65-95d5-de9ea79a5c13",
+                    "id": "00cac1f4-f839-4642-95b7-ae6f25c6e7c8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Hold(duration=0.3)",
@@ -35,19 +35,8 @@
             ],
             "bindings": [
                 {
-                    "name": "",
-                    "id": "e77b2ff3-8ac0-4127-85cb-8d0e7eaa4f34",
-                    "path": "<Keyboard>/space",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "keyboard",
-                    "action": "jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
                     "name": "1D Axis",
-                    "id": "19d817ca-2938-4c8e-9283-678231897278",
+                    "id": "4de59a6a-a679-46e0-8ea9-1dc6186a7f93",
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
@@ -58,7 +47,7 @@
                 },
                 {
                     "name": "negative",
-                    "id": "a98874ab-e33b-4e48-a44c-132d6c14f5a0",
+                    "id": "45dd2765-d9d7-471f-8274-e40daa4ad3cc",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -69,7 +58,7 @@
                 },
                 {
                     "name": "positive",
-                    "id": "a6e457f1-355f-45f6-9fd8-0fe560f15c7f",
+                    "id": "c01734f8-7efa-4a49-a9d9-3961aa007e21",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -80,7 +69,18 @@
                 },
                 {
                     "name": "",
-                    "id": "c17cb558-7910-49f9-82bf-043636afe9cc",
+                    "id": "959eaaef-ae7d-49c7-928b-33713bbb3860",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "keyboard",
+                    "action": "jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cbf68f94-e621-416e-a653-aae22a798b56",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
@@ -96,7 +96,13 @@
         {
             "name": "keyboard",
             "bindingGroup": "keyboard",
-            "devices": []
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
         }
     ]
 }

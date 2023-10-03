@@ -187,6 +187,6 @@ public class PlayerMovement : MonoBehaviour
         GameOver.SetActive(true); // replace this with whichever way you triggered the game over screen for Checkoff 1
     }
 
-
+ 
 
 }
