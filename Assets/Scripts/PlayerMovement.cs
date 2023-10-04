@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
 
     // for audio
     public AudioSource marioAudio;
+    public AudioSource marioDieAudio;
+    private bool marioDiePitchDown = false;
 
     public AudioClip marioDeath;
 
@@ -36,7 +39,6 @@ public class PlayerMovement : MonoBehaviour
     public bool alive = true;
 
     //mask for collision
-
     int collisionLayerMask = (1 << 3) | (1 << 6) | (1 << 7);
 
     // gamemanager
@@ -59,6 +61,11 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         marioAnimator.SetFloat("xSpeed", Mathf.Abs(marioBody.velocity.x));
+
+        if (marioDiePitchDown == true)
+        {
+            marioDieAudio.pitch -= 0.08f * Time.deltaTime;
+        }
     }
 
     void FlipMarioSprite(int value)
@@ -68,7 +75,10 @@ public class PlayerMovement : MonoBehaviour
             faceRightState = false;
             marioSprite.flipX = true;
             if (marioBody.velocity.x > 0.05f)
+            {
                 marioAnimator.SetTrigger("onSkid");
+            }
+               
 
         }
 
@@ -77,7 +87,10 @@ public class PlayerMovement : MonoBehaviour
             faceRightState = true;
             marioSprite.flipX = false;
             if (marioBody.velocity.x < -0.05f)
+            {
                 marioAnimator.SetTrigger("onSkid");
+            }
+                
         }
     }
 
@@ -100,6 +113,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Move(faceRightState == true ? 1 : -1);
         }
+
     }
 
     void Move(int value)
@@ -107,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 movement = new Vector2(value, 0);
         // check if it doesn't go beyond maxSpeed
-        if (marioBody.velocity.magnitude < maxSpeed)
+        if (MathF.Abs(marioBody.velocity.x) < maxSpeed)
             marioBody.AddForce(movement * speed);
     }
 
@@ -127,15 +141,27 @@ public class PlayerMovement : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.gameObject.CompareTag("Enemy_Head") && alive)
+        {
+            Debug.Log("kill Goomba!");
+            GameObject EnemyObject = other.gameObject;
+            EnemyObject.transform.parent.GetComponent<Transform>().localScale = new Vector3(1.0f, 0.3f, 1.0f);
+            EnemyObject.transform.parent.GetComponent<BoxCollider2D>().enabled = false;
+            EnemyObject.GetComponent<BoxCollider2D>().enabled = false;
+            gameManager.IncreaseScore(1);
+            marioBody.velocity.Set(marioBody.velocity.x, 0.0f);
+            marioBody.AddForce(Vector2.up* 40.0f , ForceMode2D.Impulse);
+        }
+
         if (other.gameObject.CompareTag("Enemy") && alive)
         {
             Debug.Log("Collided with goomba!");
 
             // play death animation
             marioAnimator.Play("Mario-die");
-            marioAudio.PlayOneShot(marioDeath);
-
+            marioDieAudio.PlayOneShot(marioDeath);
             alive = false;
+            marioDiePitchDown = true;
         }
     }
 
@@ -192,6 +218,8 @@ public class PlayerMovement : MonoBehaviour
         // reset animation
         marioAnimator.SetTrigger("gameRestart");
         alive = true;
+        marioDiePitchDown = false;
+        marioDieAudio.pitch = 1.0f;
 
         //// reset camera position
         //gameCamera.position = new Vector3(0.0f, 0.0f, 0.0f);
