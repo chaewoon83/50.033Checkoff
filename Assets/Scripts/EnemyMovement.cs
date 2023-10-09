@@ -15,8 +15,6 @@ public class EnemyMovement : MonoBehaviour
 
     public Vector3 startPosition = new Vector3(10.0f, 0.0f, 0.0f);
 
-    private bool IsAlive = true;
-
     GameManager gameManager;
 
     void Start()
@@ -68,7 +66,6 @@ public class EnemyMovement : MonoBehaviour
         originalX = transform.position.x;
         moveRight = -1;
         ComputeVelocity();
-        IsAlive = true;
         transform.localScale = new Vector3(1.0f, 1.0f, 0.0f);
         enemyCollider.enabled = true;
         enemyheadCollider.enabled = true;

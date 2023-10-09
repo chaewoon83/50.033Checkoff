@@ -21,8 +21,6 @@ public class QuestionBlock : MonoBehaviour
 
     float currentTime;
     float currentBumpTime;
-    //mask for collision
-    int collisionLayerMask = (1 << 8);
     bool IsActive = true;
     bool stopTime = false;
     bool IsBump = false;
@@ -64,7 +62,6 @@ public class QuestionBlock : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Mario_Top"))
         {
-            int a = 0;
             if (IsActive == true)
             {
                 StaticBox.enabled = true;

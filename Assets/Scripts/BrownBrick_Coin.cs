@@ -19,8 +19,6 @@ public class BrownBrick_Coin : MonoBehaviour
     public AudioClip BumpAudio;
 
     float currentTime;
-    //mask for collision
-    int collisionLayerMask = (1 << 8);
     bool IsActive = true;
     bool IsCoin = true;
     bool IsCoinSound = true;
