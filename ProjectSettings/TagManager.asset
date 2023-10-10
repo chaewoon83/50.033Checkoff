@@ -64,3 +64,6 @@ TagManager:
   - name: Mario
     uniqueID: 3573522977
     locked: 0
+  - name: Castle
+    uniqueID: 3867778979
+    locked: 0
