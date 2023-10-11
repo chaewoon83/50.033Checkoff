@@ -6,9 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: dac94fb7a8b0b0a429e54bf988a1a794
+  - enabled: 1
+    path: Assets/Scenes/Intro.unity
+    guid: 36cf561233fa82447851be7866708028
+  - enabled: 1
     path: Assets/Scenes/Mario 1-1.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/Mario 1-2.unity
-    guid: 7d16022d4f4657048b104e3a27e19af1
+    guid: cfdac2cb179873f478ad94e5c53ceec9
   m_configObjects: {}

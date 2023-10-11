@@ -7,15 +7,16 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 10;
+    public GameConstants gameConstants;
+    float deathImpulse;
+    float upSpeed;
+    float maxSpeed;
+    float speed;
+
     public Rigidbody2D marioBody;
-    public float maxSpeed = 20;
-    public float upSpeed = 10;
     private bool onGroundState = true;
     private SpriteRenderer marioSprite;
     private bool faceRightState = true;
-
-    public float deathImpulse = 10;
 
     private bool moving = false;
     private bool jumpedState = false;
@@ -23,8 +24,6 @@ public class PlayerMovement : MonoBehaviour
     public Animator marioAnimator;
 
     // other variables
-    public GameObject enemies;
-    public GameObject GameOver;
 
     // for audio
     public AudioSource marioAudio;
@@ -32,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
     private bool marioDiePitchDown = false;
 
     public AudioClip marioDeath;
+    public AudioClip marioDamaged;
+    public AudioClip mariokick;
 
 
     [System.NonSerialized]
@@ -43,18 +44,57 @@ public class PlayerMovement : MonoBehaviour
     // gamemanager
     GameManager gameManager;
 
+    // for powerup
+    bool IsPowerup = false;
+    bool IsMushroom = false;
+    bool IsBowser = false;
+    bool IsInvincible = false;
+    float InvincibleTime = 1.0f;
+    float InvincibleCurTime = 0.0f;
+
+    // box collider size
+
+    private Vector2 mariocolldersize = 
+        new Vector2(0.85f, 1.0f);
+    private Vector2 bigmariocolldersize = 
+        new Vector2(0.85f, 2.0f);
+
+    private Vector2 mariotopcollderoffset = 
+        new Vector2(0.0f, 0.49f);
+    private Vector2 bigmariotopcollderoffset = 
+        new Vector2(0.0f, 1.0f);
+
+
+    private Vector2 mariobotcollderoffset =
+        new Vector2(0.0f, -0.6f);
+    private Vector2 bigmariobotcollderoffset =
+        new Vector2(0.0f, -1.1f);
+
+
+    BoxCollider2D MarioCollider;
+    BoxCollider2D MarioTopCollider;
+    BoxCollider2D MarioBotCollider;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
+        speed = gameConstants.speed;
+        maxSpeed = gameConstants.maxSpeed;
+        deathImpulse = gameConstants.deathImpulse;
+        upSpeed = gameConstants.upSpeed;
         // Set to be 30 FPS
         Application.targetFrameRate = 30;
         marioBody = GetComponent<Rigidbody2D>();
         marioSprite = GetComponent<SpriteRenderer>();
         marioAnimator.SetBool("onGround", onGroundState);
         gameManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<GameManager>();
-        SceneManager.activeSceneChanged += SetStartingPosition;
+        marioDieAudio = GameManager.instance.GetComponentInChildren<AudioSource>();
+
+        MarioCollider = GetComponent<BoxCollider2D>();
+        MarioTopCollider = GameObject.FindGameObjectWithTag("Mario_Top").GetComponent<BoxCollider2D>();
+        MarioBotCollider = GameObject.FindGameObjectWithTag("Mario_Bot").GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -65,6 +105,17 @@ public class PlayerMovement : MonoBehaviour
         if (marioDiePitchDown == true)
         {
             marioDieAudio.pitch -= 0.08f * Time.deltaTime;
+        }
+
+        if (IsInvincible == true)
+        {
+            InvincibleCurTime += Time.deltaTime;
+            if (InvincibleCurTime > InvincibleTime)
+            {
+                IsInvincible = false;
+                InvincibleCurTime = 0.0f;
+                MarioBotCollider.enabled = true;
+            }
         }
     }
 
@@ -142,28 +193,45 @@ public class PlayerMovement : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Enemy_Head") && alive)
+
+
+        if (other.gameObject.CompareTag("Enemy") && alive && IsInvincible == false && IsBowser == false)
+        {
+            if (IsPowerup == true)
+            {
+                marioAudio.PlayOneShot(marioDamaged);
+                GetDamaged();
+            }
+            else
+            {
+                Debug.Log("Collided with goomba!");
+
+                // play death animation
+                marioAnimator.Play("Mario-die");
+                marioDieAudio.PlayOneShot(marioDeath);
+                alive = false;
+                marioDiePitchDown = true;
+            }
+
+        }
+        else if (other.gameObject.CompareTag("Enemy_Head") && alive && IsInvincible == false)
         {
             Debug.Log("kill Goomba!");
             GameObject EnemyObject = other.gameObject;
             EnemyObject.transform.parent.GetComponent<Transform>().localScale = new Vector3(1.0f, 0.3f, 1.0f);
             EnemyObject.transform.parent.GetComponent<BoxCollider2D>().enabled = false;
             EnemyObject.GetComponent<BoxCollider2D>().enabled = false;
+            other.enabled = false;
             GameManager.instance.IncreaseScore(1);
             marioBody.velocity.Set(marioBody.velocity.x, 0.0f);
-            marioBody.AddForce(Vector2.up* 40.0f , ForceMode2D.Impulse);
+            marioAudio.PlayOneShot(mariokick);
+            if (IsBowser == false)
+            {
+                marioBody.AddForce(Vector2.up * 40.0f, ForceMode2D.Impulse);
+            }
+
         }
 
-        if (other.gameObject.CompareTag("Enemy") && alive)
-        {
-            Debug.Log("Collided with goomba!");
-
-            // play death animation
-            marioAnimator.Play("Mario-die");
-            marioDieAudio.PlayOneShot(marioDeath);
-            alive = false;
-            marioDiePitchDown = true;
-        }
     }
 
     void PlayJumpSound()
@@ -218,24 +286,62 @@ public class PlayerMovement : MonoBehaviour
 
         // reset animation
         marioAnimator.SetTrigger("gameRestart");
+        marioAnimator.SetBool("IsSmallMario", true);
         alive = true;
         marioDiePitchDown = false;
         marioDieAudio.pitch = 1.0f;
-
+        MarioCollider.size = mariocolldersize;
+        MarioTopCollider.offset = mariotopcollderoffset;
+        MarioBotCollider.offset = mariobotcollderoffset;
+        IsInvincible = false;
+        InvincibleCurTime = 0.0f;
+        IsBowser = false;
+        IsPowerup = false;
     }
-    public void SetStartingPosition(Scene current, Scene next)
-    {
-        if (next.name == "Mario 1-2")
-        {
-            // change the position accordingly in your World-1-2 case
-            this.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
-        }
-    }
-
     void Awake()
     {
         // other instructions
         // subscribe to Game Restart event
         GameManager.instance.gameRestart.AddListener(GameRestart);
+    }
+
+    public void GetMushroom()
+    {
+        IsPowerup = true;
+        IsMushroom = true;
+        marioAnimator.SetBool("IsSmallMario", false);
+        marioAnimator.SetTrigger("GetMushroom");
+        transform.position = transform.position + Vector3.up * 0.5f;
+        MarioCollider.size = bigmariocolldersize;
+        MarioTopCollider.offset = bigmariotopcollderoffset;
+        MarioBotCollider.offset = bigmariobotcollderoffset;
+    }
+
+    public void GetBowser()
+    {
+        IsPowerup = true;
+        IsBowser = true;
+        marioAnimator.SetBool("IsSmallMario", false);
+        marioAnimator.SetTrigger("GetBowser");
+
+        //TODO
+        transform.position = transform.position + Vector3.up * 0.5f;
+        MarioCollider.size = bigmariocolldersize;
+        MarioTopCollider.offset = bigmariotopcollderoffset;
+        MarioBotCollider.offset = bigmariobotcollderoffset;
+    }
+
+    public void GetDamaged()
+    {
+        IsPowerup = false;
+        IsInvincible = true;
+        InvincibleCurTime = 0.0f;
+        MarioBotCollider.enabled = false;
+        transform.position = transform.position - Vector3.up * 0.5f;
+        MarioCollider.size = mariocolldersize;
+        MarioTopCollider.offset = mariotopcollderoffset;
+        MarioBotCollider.offset = mariobotcollderoffset;
+        marioAnimator.SetBool("IsSmallMario", true);
+
     }
 }

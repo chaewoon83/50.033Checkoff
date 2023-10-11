@@ -13,15 +13,17 @@ public class EnemyMovement : MonoBehaviour
     private BoxCollider2D enemyCollider;
     public BoxCollider2D enemyheadCollider;
 
-    public Vector3 startPosition = new Vector3(10.0f, 0.0f, 0.0f);
+    Vector3 startPosition;
 
     GameManager gameManager;
+    
 
     void Start()
     {
         enemyBody = GetComponent<Rigidbody2D>();
         enemyCollider = GetComponent<BoxCollider2D>();
         // get the starting position
+        startPosition = transform.position;
         originalX = transform.position.x;
         ComputeVelocity();
 

@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class ButtonController : MonoBehaviour
+public class MushroomEvent : MonoBehaviour
 {
+
+    public UnityEvent AnimationEvent;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,8 +19,8 @@ public class ButtonController : MonoBehaviour
         
     }
 
-    public void ButtonClick()
+    void UseEvent()
     {
-        GameManager.instance.GameRestart();
+        AnimationEvent.Invoke();
     }
 }

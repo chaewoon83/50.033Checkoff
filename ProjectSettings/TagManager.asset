@@ -13,6 +13,9 @@ TagManager:
   - Mario_Bot
   - Enemy_Head
   - StaticEnvirnoment
+  - Mushroom
+  - MushroomQuestionBox
+  - BowserQuestionBox
   layers:
   - Default
   - TransparentFX
@@ -23,7 +26,7 @@ TagManager:
   - Enemies
   - Obstacles
   - Mario_Top
-  - Mario_Bot
+  - Pipe
   - 
   - 
   - 

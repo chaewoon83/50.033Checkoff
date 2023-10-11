@@ -5,6 +5,9 @@ using TMPro;
 
 public class HUDManager : MonoBehaviour
 {
+    public GameObject highscoreText;
+    public IntVariable gameScore;
+
     private Vector3[] scoreTextPosition = {
         new Vector3(-747, 473, 0),
         new Vector3(0, 0, 0)
@@ -21,6 +24,7 @@ public class HUDManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //SetScore(gameScore.Value);
     }
 
     // Update is called once per frame
@@ -35,6 +39,7 @@ public class HUDManager : MonoBehaviour
         gameOverPanel.SetActive(false);
         scoreText.transform.localPosition = scoreTextPosition[0];
         restartButton.localPosition = restartButtonPosition[0];
+
     }
 
     public void SetScore(int score)
@@ -48,6 +53,10 @@ public class HUDManager : MonoBehaviour
         gameOverPanel.SetActive(true);
         scoreText.transform.localPosition = scoreTextPosition[1];
         restartButton.localPosition = restartButtonPosition[1];
+        // set highscore
+        highscoreText.GetComponent<TextMeshProUGUI>().text = "TOP- " + gameScore.previousHighestValue.ToString("D6");
+        // show
+        highscoreText.SetActive(true);
     }
 
     void Awake()

@@ -141,7 +141,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.35288858}
+  m_Offset: {x: 0, y: 0.48876828}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -152,7 +152,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8548908, y: 0.27629244}
+  m_Size: {x: 0.8548908, y: 0.54805183}
   m_EdgeRadius: 0
 --- !u!1 &8250853309250629415
 GameObject:
@@ -302,7 +302,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.10813387}
+  m_Offset: {x: 0, y: -0.24401355}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -313,7 +313,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.7837323}
+  m_Size: {x: 1, y: 0.5119729}
   m_EdgeRadius: 0
 --- !u!114 &4194658584825157260
 MonoBehaviour:
@@ -328,4 +328,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyheadCollider: {fileID: 2668200411183116020}
-  startPosition: {x: 10, y: 0, z: 0}
+  startPosition: {x: 11.5, y: 0, z: 0}

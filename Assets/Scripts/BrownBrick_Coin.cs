@@ -89,7 +89,7 @@ public class BrownBrick_Coin : MonoBehaviour
 
     void SpawnCoin()
     {
-        useInt.Invoke(parameter);
+        GameManager.instance.IncreaseScore(1);
         CoinGameObject.SetActive(true);
         CoinRigidBody.AddForce(Vector2.up * 15.0f, ForceMode2D.Impulse);
   
