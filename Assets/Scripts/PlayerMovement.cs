@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
     public float speed = 10;
-    private Rigidbody2D marioBody;
+    public Rigidbody2D marioBody;
     public float maxSpeed = 20;
     public float upSpeed = 10;
     private bool onGroundState = true;
@@ -32,8 +33,6 @@ public class PlayerMovement : MonoBehaviour
 
     public AudioClip marioDeath;
 
-    // for camera
-    public Transform gameCamera;
 
     [System.NonSerialized]
     public bool alive = true;
@@ -55,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
         marioSprite = GetComponent<SpriteRenderer>();
         marioAnimator.SetBool("onGround", onGroundState);
         gameManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<GameManager>();
+        SceneManager.activeSceneChanged += SetStartingPosition;
     }
 
     // Update is called once per frame
@@ -102,6 +102,7 @@ public class PlayerMovement : MonoBehaviour
             onGroundState = true;
             // update animator state
             marioAnimator.SetBool("onGround", onGroundState);
+            
         }
     }
 
@@ -148,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
             EnemyObject.transform.parent.GetComponent<Transform>().localScale = new Vector3(1.0f, 0.3f, 1.0f);
             EnemyObject.transform.parent.GetComponent<BoxCollider2D>().enabled = false;
             EnemyObject.GetComponent<BoxCollider2D>().enabled = false;
-            gameManager.IncreaseScore(1);
+            GameManager.instance.IncreaseScore(1);
             marioBody.velocity.Set(marioBody.velocity.x, 0.0f);
             marioBody.AddForce(Vector2.up* 40.0f , ForceMode2D.Impulse);
         }
@@ -221,8 +222,20 @@ public class PlayerMovement : MonoBehaviour
         marioDiePitchDown = false;
         marioDieAudio.pitch = 1.0f;
 
-        //// reset camera position
-        //gameCamera.position = new Vector3(0.0f, 0.0f, 0.0f);
+    }
+    public void SetStartingPosition(Scene current, Scene next)
+    {
+        if (next.name == "Mario 1-2")
+        {
+            // change the position accordingly in your World-1-2 case
+            this.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
+        }
     }
 
+    void Awake()
+    {
+        // other instructions
+        // subscribe to Game Restart event
+        GameManager.instance.gameRestart.AddListener(GameRestart);
+    }
 }

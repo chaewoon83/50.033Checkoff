@@ -12,6 +12,7 @@ TagManager:
   - QuestionBox
   - Mario_Bot
   - Enemy_Head
+  - StaticEnvirnoment
   layers:
   - Default
   - TransparentFX

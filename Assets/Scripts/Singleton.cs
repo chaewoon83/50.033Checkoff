@@ -11,6 +11,12 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
+    public void Qwer()
+
+    {
+       
+    }
+
     public virtual void Awake()
     {
         Debug.Log("Singleton Awake called");

@@ -30,4 +30,9 @@ public class QuestionBoxManager : MonoBehaviour
             child.GetComponent<QuestionBlock>().Reset();
         }
     }
+
+    void Awake()
+    {
+        GameManager.instance.gameRestart.AddListener(Reset);
+    }
 }

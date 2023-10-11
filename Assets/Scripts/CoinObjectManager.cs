@@ -5,10 +5,10 @@ using UnityEngine;
 public class CoinObjectManager : MonoBehaviour
 {
     // Start is called before the first frame update
+    GameObject parentObject;
     GameObject[] gameObjects;
     void Start()
     {
-
         gameObjects = GameObject.FindGameObjectsWithTag("CoinObject");
 
         if (gameObjects.Length == 0)
@@ -29,5 +29,10 @@ public class CoinObjectManager : MonoBehaviour
         {
             child.GetComponent<BrownBrick_Coin>().Reset();
         }
+    }
+
+    void Awake()
+    {
+        GameManager.instance.gameRestart.AddListener(Reset);
     }
 }

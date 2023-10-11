@@ -13,6 +13,7 @@ public class GameManager : Singleton<GameManager>
 
     private int score = 0;
 
+
     void Start()
     {
         gameStart.Invoke();
